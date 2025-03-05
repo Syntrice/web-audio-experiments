@@ -7,11 +7,15 @@ export default () => {
 
   useEffect(() => {
     synth.current = new Tone.Synth().toDestination()
+    synth.current.oscillator.type = "sine"
+    synth.current.envelope.attack = 0.05
+    Tone.Synth
   })
 
   async function start() {
     await Tone.start()
     synth.current?.triggerAttackRelease("C4", "8n", Tone.now())
+  
   }
 
   return (
