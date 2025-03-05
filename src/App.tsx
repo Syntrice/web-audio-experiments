@@ -1,7 +1,22 @@
+import React, { useState, useRef, useEffect} from "react"
+import * as Tone from "tone";
+
 export default () => {
+  const [loaded, setLoaded] = useState(false)
+  const synth = useRef<Tone.Synth>(null)
+
+  useEffect(() => {
+    synth.current = new Tone.Synth().toDestination()
+  })
+
+  async function start() {
+    await Tone.start()
+    synth.current?.triggerAttackRelease("C4", "8n", Tone.now())
+  }
+
   return (
-    <>
-      <h1>Hello World!</h1>
-    </>
+    <div className="p-5 flex gap-5">
+      <button className="button" onClick={start}>Start</button>
+    </div>
   )
 }
